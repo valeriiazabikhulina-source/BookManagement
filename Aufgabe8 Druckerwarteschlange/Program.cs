@@ -69,11 +69,11 @@ class PrinterQueue
 
         if (head != null)
         {
-            head.Prev = null; // У новой головы больше нет предыдущего элемента
+            head.Prev = null; 
         }
         else
         {
-            tail = null; // Если очередь стала пустой, обнуляем и хвост
+            tail = null; 
         }
     }
 
