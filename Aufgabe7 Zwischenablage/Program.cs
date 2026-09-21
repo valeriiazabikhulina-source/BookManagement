@@ -10,7 +10,7 @@ class Clipboard
     public Clipboard(int size)
     {
         storage = new string[size];
-        count = 0; // Сначала буфер пуст
+        count = 0; 
     }
 
 
@@ -39,7 +39,7 @@ class Clipboard
     {
         if (count == 0)
         {
-            return null; // Буфер пуст
+            return null;
         }
 
         
