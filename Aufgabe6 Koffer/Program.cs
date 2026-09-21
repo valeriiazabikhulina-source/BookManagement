@@ -14,79 +14,77 @@ class Suitcase
     {
         get
         {
-            return currentWeight; // просто отдаем наше внутреннее число
+            return currentWeight; 
         }
     }
 
     public bool InsertLuggage(Luggage item)
     {
-        // 1. Проверяем, не будет ли перевеса
+        
         if (currentWeight + item.weight > maxWeight)
         {
-            return false; // Вещь слишком тяжелая, отказываем
+            return false; 
         }
 
-        // 2. Увеличиваем текущий вес чемодана
+       
         currentWeight += item.weight;
 
-        // 3. Кладем вещь в начало связного списка
+       
         item.Next = head;
         head = item;
 
-        return true; // Успешно добавлено!
+        return true; 
     }
 
     public Luggage RemoveLuggage(string label)
     {
         if (head != null && head.label == label)
         {
-            Luggage target = head;          // Запоминаем эту вещь, чтобы вернуть её в конце
-            head = head.Next;               // Назначаем новой головой СЛЕДУЮЩУЮ вещь
-            currentWeight -= target.weight; // Уменьшаем вес чемодана!
-            target.Next = null;             // Отцепляем вещь от списка
-            return target;                  // Возвращаем её наружу
+            Luggage target = head;          
+            head = head.Next;               
+            currentWeight -= target.weight; 
+            target.Next = null;             
+            return target;                  
         }
         Luggage current = head;
 
-        // Пока за нами кто-то стоит
         while (current.Next != null)
         {
-            // Проверяем: у следующей вещи то самое имя?
             if (current.Next.label == label)
             {
-                Luggage target = current.Next; // Запоминаем вещь, которую удаляем
+                Luggage target = current.Next; 
 
-                // Перекидываем мостик В ОБХОД неё (к её соседу)
+               
                 current.Next = current.Next.Next;
 
-                currentWeight -= target.weight; // Не забываем вычесть вес
-                target.Next = null;             // Отцепляем её окончательно
-                return target;                  // Возвращаем найденную вещь!
+                currentWeight -= target.weight; 
+                target.Next = null;             
+                return target;                  
             }
 
-            current = current.Next; // Идем дальше, если не нашли
+            current = current.Next; 
         }
         return null;
     }
     public void GetAllLuggage()
     {
-        // Встаем на самую первую вещь в чемодане
+      
         Luggage current = head;
 
-        // Если чемодан совсем пустой, можно сразу об этом сказать
+       
         if (current == null)
         {
             Console.WriteLine("Der Koffer ist leer.");
             return;
         }
 
-        // Идем по цепочке, пока вещи не кончатся
+    
         while (current != null)
         {
-            // Выводим название текущей вещи
+         
             Console.WriteLine($"- {current.label} ({current.weight} kg)");
 
-            // Переходим к следующей вещи
+           
             current = current.Next;
         }
     }
@@ -107,12 +105,12 @@ class Program
 {
     static void Main()
     {
-        // Создаем чемодан с лимитом 20 кг
+        
         Suitcase mySuitcase = new Suitcase(20.0);
 
         Console.WriteLine($"--- Packen wir den Koffer (Max: {mySuitcase.Weight}/20 kg) ---");
 
-        // Пробуем положить вещи
+    
         mySuitcase.InsertLuggage(new Luggage(5.5, "Kleidung"));
         mySuitcase.InsertLuggage(new Luggage(3.2, "Schuhe"));
         mySuitcase.InsertLuggage(new Luggage(10.0, "Bücher"));
@@ -124,7 +122,7 @@ class Program
         Console.WriteLine("\nInhalt des Koffers:");
         mySuitcase.GetAllLuggage();
 
-        // Тестируем удаление вещи
+      
         Console.WriteLine("\n--- Wir nehmen 'Schuhe' raus ---");
         Luggage removed = mySuitcase.RemoveLuggage("Schuhe");
         if (removed != null)
